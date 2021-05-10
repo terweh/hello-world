@@ -133,19 +133,77 @@ def nice_2(string):
 
 def day5():
     count = 0
-    print(nice_2("qjhvhtzxzqqjkmpb")) #nice
-    print(nice_2("xxyxx")) #nice
-    print(nice_2("uurcxstgmygtbstg")) #naughty
-    print(nice_2("ieodomkazucvgmuy")) #naughty
-
     for line in open("input_5.txt"):
         if nice_2(line):
             count+=1
     print(count)
     return
 
+##################################
+
+def day6():
+    return
+
+##################################
+
+def day7():
+    return
+
+##################################
+
+def day8():
+    return
+
+##################################
+
+def day9():
+    return
+
+##################################
+
+def day10():
+    return
+
+##################################
+
+def day11():
+    return
 
 
+##################################
+
+def day12():
+    return
+
+
+##################################
+
+def day13():
+    return
+
+
+##################################
+
+def day15():
+    return
+
+##################################
+
+def day16():
+    return
+
+##################################
+
+def day17():
+    return
+##################################
+
+def day18():
+    return
+##################################
+
+def day19():
+    return
 
 ##################################
 
@@ -190,6 +248,22 @@ def day20(number, two):
     #         break
     #     sys.stdout.write('\b'*(10+len(str(number))))
 
+
+##################################
+
+def day21():
+    return
+
+
+##################################
+
+def day22():
+    return
+
+##################################
+
+def day23():
+    return
 
 ##########################################
 
@@ -242,6 +316,7 @@ if __name__ == '__main__':
     #day3_2()
     #day4()
     #day5()
+    day6()
 
     #day20(29000000, False)
     #day20(290, True)
