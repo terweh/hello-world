@@ -327,8 +327,47 @@ def day8():
     return
 
 ##################################
+test9=["London to Dublin = 464",
+       "London to Belfast = 518",
+       "Dublin to Belfast = 141"]
+
+def go_broad(visited,list):
+    if len(list)>1:
+        all=[]
+        for city in list:
+            visited_local=visited
+            list_local=list.copy()
+            list_local.remove(city)
+            visited_local+="->"+city
+            all+=go_broad(visited_local,list_local)
+        return all
+    else:
+        return [visited+"->"+list[0]]
 
 def day9():
+    citylist=set([])
+    distances={}
+    
+    for line in open("input_9.txt"):
+        line.strip("\n")
+        a=line.split(" ")
+        citylist.add(a[0])
+        citylist.add(a[2])
+        distances[a[0]+"-"+a[2]]=int(a[4])
+        distances[a[2]+"-"+a[0]]=int(a[4])
+    citylist=list(citylist)
+
+    tours=go_broad("",citylist)
+    all_dist=[]
+    for tour in tours:
+        m=tour.split("->")
+        dist=0
+        for i in range(1,len(m)-1):
+            dist+=distances[m[i]+"-"+m[i+1]]
+        all_dist.append(dist)
+    print(min(all_dist))
+    print(max(all_dist))
+
     return
 
 ##################################
@@ -490,8 +529,8 @@ if __name__ == '__main__':
     #day5()
     #day6()
     #day7()
-    day8()
-
+    #day8()
+    day9()
 
     #day20(29000000, False)
     #day20(290, True)
