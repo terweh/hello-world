@@ -292,8 +292,38 @@ def day7():
     return
 
 ##################################
+test8 = [r'""', r'"abc"', r'"aaa\"aaa"', r'"\x27"']
+
+def clean(string):
+    string = re.sub('\\\\\\\\', '_', string)
+    string = re.sub('\\\\\"', '_', string)
+    string = re.sub('\\\\x..', '_', string)
+    string=string.strip('"')
+    return string
+
+def encode8(string):
+    string = re.sub('\\\\', r'\\\\', string)
+    string = re.sub('"', r'\\"', string)
+    return r'"'+string+r'"'
 
 def day8():
+    #for line in test8:
+    all=0
+    decoded=0
+    encoded=0
+    for line in open("input_8.txt"):
+        line=line.strip("\n")
+        print(len(line), end=" : ")
+        line2=clean(line)
+        line3=encode8(line)
+        print(len(line3))
+        print(line,line3)
+
+        all+=len(line)
+        decoded+=len(line2)
+        encoded+=len(line3)
+    print("part 1: {}".format(all-decoded))
+    print("part 1: {}".format(encoded-all))
     return
 
 ##################################
@@ -459,7 +489,9 @@ if __name__ == '__main__':
     #day4()
     #day5()
     #day6()
-    day7()
+    #day7()
+    day8()
+
 
     #day20(29000000, False)
     #day20(290, True)
