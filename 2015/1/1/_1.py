@@ -140,13 +140,155 @@ def day5():
     return
 
 ##################################
+class Light():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.light = False
+
+def map_lights(line, grid):
+    c = list(map(lambda x: list(map(lambda y: int(y), x.split(","))), re.findall("\d+,\d+", line)))
+    c.append(re.findall("t\w\w\w[ l]\w+ ",line)[0])
+    if c[2] == "turn on ":
+        for x in range(c[0][0],c[1][0]+1):
+            for y in range(c[0][1],c[1][1]+1):
+                grid[x][y]+=1
+    elif c[2] == "turn off ":
+        for x in range(c[0][0],c[1][0]+1):
+            for y in range(c[0][1],c[1][1]+1):
+                grid[x][y]-=1 if grid[x][y] > 0 else 0
+    elif c[2] == "toggle ":
+        for x in range(c[0][0],c[1][0]+1):
+            for y in range(c[0][1],c[1][1]+1):
+                grid[x][y] += 2
+    else:
+        raise EnvironmentError
+    return grid
 
 def day6():
+    grid =[[0 for y in range(0,1000)] for x in range(0,1000)]
+    
+    for line in open("input_6.txt"):
+        grid = map_lights(line, grid)
+
+    count = 0
+    for row in grid:
+        for light in row:
+            count += light
+
+    print(count)
     return
 
 ##################################
+test=["123 -> lx",
+      "456 -> y",
+      "lx AND y -> dp",
+      "lx OR y -> e",
+      "lx LSHIFT 2 -> f",
+      "y RSHIFT 2 -> g",
+      "NOT lx -> h",
+      "NOT y -> i",
+      "dp -> k"]
+
+class Signal():
+    def __init__(self, signal, index):
+        self.index=index
+        if re.fullmatch("\d+",signal):
+            self.full=True
+            self.signal=int(signal)
+        else:
+            self.full=False
+            s=signal.split(" ")
+            if s[0]=="NOT":
+                self.gate=s[0]
+                self.input=s[1]
+            elif len(s)>1:
+                self.gate=s[1]
+                self.input=[s[0], s[2]]
+            else:
+                self.gate="EQUAL"
+                self.input=s[0]
+
+    def get_signal(self, dict):
+        if self.full==False:
+            self.full=True
+            self.signal=self.generate(dict)
+            print(self.index)
+        return self.signal
+
+    def get(self,string,dict):
+        return int(string) if re.fullmatch("\d+",string) else dict[string].get_signal(dict)
+
+    def generate(self, dict):
+        if self.gate=="NOT":
+            return NOT(self.get(self.input, dict))
+        elif self.gate=="AND":
+            return AND(self.get(self.input[0], dict), self.get(self.input[1], dict))
+        elif self.gate=="OR":
+            return OR(self.get(self.input[0], dict), self.get(self.input[1], dict))
+        elif self.gate=="LSHIFT":
+            return LSHIFT(self.get(self.input[0], dict), int(self.input[1]))
+        elif self.gate=="RSHIFT":
+            return RSHIFT(self.get(self.input[0], dict), int(self.input[1]))
+        elif self.gate=="EQUAL":
+            return self.get(self.input, dict)
+        else:
+            raise EnvironmentError
+        
+
+def to16bin(i):
+    return str(bin(i))[2:].zfill(16)
+
+def AND(x,y):
+    z=list(to16bin(0))
+    x=to16bin(x)
+    y=to16bin(y)
+    for i in range(16):
+        if x[i]=="1" and y[i]=="1":
+            z[i]="1"
+        else:
+            z[i]="0"
+    return int("".join(z), 2)
+
+def OR(x,y):
+    z=list(to16bin(0))
+    x=to16bin(x)
+    y=to16bin(y)
+    for i in range(16):
+        if x[i]=="1" or y[i]=="1":
+            z[i]="1"
+        else:
+            z[i]="0"
+    return int("".join(z), 2)
+
+def LSHIFT(x,i):
+    x=to16bin(x)
+    return int(x[i:]+"0"*i, 2)
+
+def RSHIFT(x,i):
+    x=to16bin(x)
+    return int("0"*i+x[:-i], 2)
+
+def NOT(x):
+    z=list(to16bin(0))
+    x=to16bin(x)
+    for i in range(16):
+        if x[i]=="0":
+            z[i]="1"
+    return int("".join(z), 2)
+
 
 def day7():
+    dict={}
+    for line in open("input_7.txt"):
+        #for line in test:
+        l=line.strip("\n").split(" -> ")
+        dict[l[1]]=Signal(l[0], l[1])
+        
+    dict["b"].signal=46065
+    print(dict["a"].get_signal(dict))
+    #for element in dict:
+    #    print("{}: {}".format(element,dict[element].get_signal(dict)))
     return
 
 ##################################
@@ -316,7 +458,8 @@ if __name__ == '__main__':
     #day3_2()
     #day4()
     #day5()
-    day6()
+    #day6()
+    day7()
 
     #day20(29000000, False)
     #day20(290, True)
