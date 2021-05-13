@@ -394,8 +394,44 @@ def day10():
     return
 
 ##################################
+legal=["abc","def","ghi","jkl","mno","pqr","stu","vwx",
+       "bcd","efg","hij","klm","nop","qrs","tuv","wxy",
+       "cde","fgh","ijk","lmn","opq","rst","uvw","xyz"]
+
+def check_pw(pw):
+    # Rule 2: no i, l or o
+    bad = re.findall(r"[ilo]",pw)
+    if len(bad) >=1:
+        return False
+    doubles = re.findall(r"(\w)\1{1}",pw)
+    if len(set(doubles)) < 2:
+        return False
+    for string in legal:
+        if len(re.findall(string, pw)) > 0:
+            return True
+    return False
+
+def increment_pw(pw):
+    string=pw
+    pw = bytes(pw, 'utf-8')
+    if string[-1:] == "z":
+        pw = increment_pw(string[:-1]) + "a"
+    else:
+        pw =pw[:-1] + bytes([pw[len(pw)-1] + 1])
+        # converting byte to string
+        pw = pw.decode('utf-8')
+    return pw
 
 def day11():
+    pw="cqjxjnds"
+    while True:
+        pw=increment_pw(pw)
+        if check_pw(pw): break
+    print(pw)
+    while True:
+        pw=increment_pw(pw)
+        if check_pw(pw): break
+    print(pw)
     return
 
 
@@ -549,7 +585,8 @@ if __name__ == '__main__':
     #day7()
     #day8()
     #day9()
-    day10()
+    #day10()
+    day11()
 
     #day20(29000000, False)
     #day20(290, True)
