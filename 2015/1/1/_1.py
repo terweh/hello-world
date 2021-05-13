@@ -372,7 +372,25 @@ def day9():
 
 ##################################
 
+def fun10(string):
+    new=""
+    while len(string)>0:
+        match=re.search(r"(\d)\1*",string)
+        new+=str(len(match.group()))+match.group()[0]
+        string=string[match.end():]
+    return new
+
 def day10():
+    line="211112221"
+    print(line, fun10(line), sep=" -> ")
+
+    line="1321131112"
+    outcome="1321131112"
+    for i in range(50):
+        outcome=fun10(outcome)
+        print(i)
+    print(len(outcome)) #6989950
+
     return
 
 ##################################
@@ -530,7 +548,8 @@ if __name__ == '__main__':
     #day6()
     #day7()
     #day8()
-    day9()
+    #day9()
+    day10()
 
     #day20(29000000, False)
     #day20(290, True)
