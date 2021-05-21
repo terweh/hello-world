@@ -1,4 +1,4 @@
-import time, itertools, hashlib, re
+import time, itertools, hashlib, re, json
 from math import log
 
 ########################
@@ -436,16 +436,120 @@ def day11():
 
 
 ##################################
+def process_dict(j,filter=False):
+    sm=[]
+    #if len(space)>3:
+    #    return []
+    for o in j:
+        if o == "red" or j[o] == "red":
+           if filter: return []
+        if isinstance(j[o],str):
+            pass
+        elif isinstance(j[o], int):
+            sm.append(j[o])
+        elif isinstance(j[o], list):
+            sm += process_list(j[o],filter)
+        elif isinstance(j[o], dict):
+            sm += process_dict(j[o],filter)
+    return sm
+
+def process_list(j,filter=False):
+    sm=[]
+    #if len(space)>3:
+    #    return []
+    for o in j:
+        if isinstance(o,str):
+            pass
+        elif isinstance(o, int):
+            sm.append(o)
+        elif isinstance(o, list):
+            sm += process_list(o,filter)
+        elif isinstance(o, dict):
+            sm += process_dict(o,filter)
+    return sm
 
 def day12():
+    for line in open("input_12.txt"):
+        j_input = json.loads(line)
+        print(sum(process_dict(j_input,True)))
+        print(sum(process_dict(j_input)))
     return
 
 
 ##################################
 
 def day13():
+    seating={}
+    names=set()
+    # for line in open("input_13.txt"):
+    for line in open("input_13_1.txt"):
+        all=line.split(" ")
+        names.add(all[0])
+        happiness = all[3] if all[2] == "gain" else -int(all[3])
+        seating[all[0]+all[10][:-2]] = int(happiness)
+    all_happ=[]
+    for arrangement in itertools.permutations(names):
+        happ=[]
+        first=""
+        last=""
+        for name in arrangement:
+            if first=="":
+                first=name
+                last=name
+            else:
+                happ.append(seating[last+name])
+                happ.append(seating[name+last])
+                last=name
+        happ.append(seating[last + first])
+        happ.append(seating[first + last])
+        all_happ.append(sum(happ))
+    print(max(all_happ))
+                
+
+
+
     return
 
+
+##################################
+reindeers = {"Dancer" :  itertools.cycle([27]* 5 + [0] * 132),
+             "Cupid" :   itertools.cycle([22]* 2 + [0] *  41),
+             "Rudolph" : itertools.cycle([11]* 5 + [0] *  48),
+             "Donner" :  itertools.cycle([28]* 5 + [0] * 134),
+             "Dasher" :  itertools.cycle([ 4]*16 + [0] *  55),
+             "Blitzen" : itertools.cycle([14]* 3 + [0] *  38),
+             "Prancer" : itertools.cycle([ 3]*21 + [0] *  40),
+             "Comet" :   itertools.cycle([18]* 6 + [0] * 103),
+             "Vixen" :   itertools.cycle([18]* 5 + [0] *  84)}
+
+def day14():
+    rounds = 2503
+    distances = {"Dancer" : 0,
+                 "Cupid" : 0,
+                 "Rudolph" : 0,
+                 "Donner" : 0,
+                 "Dasher" : 0,
+                 "Blitzen" : 0,
+                 "Prancer" : 0,
+                 "Comet" : 0,
+                 "Vixen" : 0 }
+
+    for round in range(rounds):
+        for deer in reindeers:
+            distances[deer]+=next(reindeers[deer])
+        top=distances[max(distances.keys(), key=(lambda k: distances[k]))]
+        tops=[]
+        for deer in reindeers:
+            if distances[deer]==top:
+                tops.append(deer)
+                distances[deer]+=1
+        if len(tops) > 1:
+            print(tops)
+    print(distances)
+    print(distances[max(distances.keys(), key=(lambda k: distances[k]))])
+    print(max(distances.keys(), key=(lambda k: distances[k])))
+    
+    return
 
 ##################################
 
@@ -586,7 +690,10 @@ if __name__ == '__main__':
     #day8()
     #day9()
     #day10()
-    day11()
+    #day11()
+    #day12()
+    #day13()
+    day14()
 
     #day20(29000000, False)
     #day20(290, True)
