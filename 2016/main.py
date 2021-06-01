@@ -1,4 +1,4 @@
-import itertools
+import itertools, time
 from collections import namedtuple
 
 ########################
@@ -82,13 +82,13 @@ def day15():
         x=line.strip().split()
         discs.append(Disc(int(x[3]),int(x[11].strip("\."))))
     j=0
-    print(discs)
+    #print(discs)
     for i in itertools.count(0):
         if (i+discs[j].start) % (discs[j].pos) ==0:
             j+=1
         else:
             j=0
-        if j==len(discs):
+        if j==len(discs): # for part 1: if j==len(discs)-1:
             print(i-len(discs))
             break
     return
@@ -139,6 +139,7 @@ def day24():
 
 
 if __name__ == '__main__':
+    tic = time.perf_counter()
     #day1(guides)
     #day2()
     #day3_1()
@@ -160,3 +161,8 @@ if __name__ == '__main__':
     #day20(290, True)
     
     #day24()
+
+    print("")
+    print("_"*80)
+    print(time.perf_counter() - tic)
+    
