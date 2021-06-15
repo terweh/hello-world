@@ -561,6 +561,17 @@ def day14():
 ##################################
 
 def day15():
+    ingredients={}
+    for line in open("input_15.txt"):
+        line=line.strip()
+        try:
+            name, values=line.split(": ")
+            ingredients[name]={x.split(" ")[0] : x.split(" ")[1] for x in values.split(", ")}
+        except:
+            pass
+    # to matrix
+    # times vector [x1 x2 x3 x4] where sum(vector)=100
+    # product(vector)
     return
 
 ##################################
@@ -687,7 +698,7 @@ def day24():
 
 if __name__ == '__main__':
     #day1(guides)
-    day2()
+    #day2()
     #day3_1()
     #day3_2()
     #day4()
@@ -701,7 +712,7 @@ if __name__ == '__main__':
     #day12()
     #day13()
     #day14()
-
+    day15()
     #day20(29000000, False)
     #day20(290, True)
     
