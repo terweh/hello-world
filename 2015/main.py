@@ -1,4 +1,4 @@
-import time, itertools, hashlib, re, json
+import time, itertools, hashlib, re, json, functools, operator
 from math import log
 
 ########################
@@ -560,15 +560,61 @@ def day14():
 
 ##################################
 
+def matrix_multiply(matrix, vector):
+    matrix2=[]
+    for i,value in enumerate(vector):
+        matrix2.append([x*value for x in matrix[i]])
+    return matrix2
+
+def taste(matrix, n):
+    #print(matrix)
+    m=zip(*matrix[::-1])
+    tastes=[sum(x) for x in m]
+    #print(tastes)
+    product=1
+    for i in range(n):
+        if tastes[i]<0: 
+            product=0
+        product*=tastes[i]
+    if tastes[n]==500:
+        return product
+    return 0
+
+def pprint(x):
+    #print(x)
+    return x
+
 def day15():
     ingredients={}
+    matrix = []
     for line in open("input_15.txt"):
         line=line.strip()
         try:
             name, values=line.split(": ")
             ingredients[name]={x.split(" ")[0] : x.split(" ")[1] for x in values.split(", ")}
+            matrix.append([int(x.split(" ")[1]) for x in values.split(", ")])
         except:
             pass
+    #print(matrix)
+    #taste(matrix_multiply([[-1, -2, 6, 3, 8],[2, 3, -2, -1, 3]],[44,56]),4)
+    max=0
+    for w in range(100):
+        print(w)
+        for x in range(100):
+            if w+x>100:
+                break
+            for y in range(100):
+                if w+x+y>100:
+                    break
+                z=100-(w+x+y)
+                t=taste(matrix_multiply(matrix,[w,x,y,z]),4)
+                if t>0: print(t)
+                #print("-----------------------------------------------------------")
+                max = pprint(t) if t > max else max
+                #print(max)
+                #exit()
+    print(max)
+                        
     # to matrix
     # times vector [x1 x2 x3 x4] where sum(vector)=100
     # product(vector)
