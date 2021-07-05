@@ -567,22 +567,16 @@ def matrix_multiply(matrix, vector):
     return matrix2
 
 def taste(matrix, n):
-    #print(matrix)
     m=zip(*matrix[::-1])
     tastes=[sum(x) for x in m]
-    #print(tastes)
     product=1
-    for i in range(n):
-        if tastes[i]<0: 
-            product=0
-        product*=tastes[i]
     if tastes[n]==500:
+        for i in range(n):
+            if tastes[i]<0: 
+                return 0
+            product*=tastes[i]
         return product
     return 0
-
-def pprint(x):
-    #print(x)
-    return x
 
 def day15():
     ingredients={}
@@ -595,8 +589,6 @@ def day15():
             matrix.append([int(x.split(" ")[1]) for x in values.split(", ")])
         except:
             pass
-    #print(matrix)
-    #taste(matrix_multiply([[-1, -2, 6, 3, 8],[2, 3, -2, -1, 3]],[44,56]),4)
     max=0
     for w in range(100):
         print(w)
@@ -609,29 +601,137 @@ def day15():
                 z=100-(w+x+y)
                 t=taste(matrix_multiply(matrix,[w,x,y,z]),4)
                 if t>0: print(t)
-                #print("-----------------------------------------------------------")
-                max = pprint(t) if t > max else max
-                #print(max)
-                #exit()
+                max = t if t > max else max
     print(max)
-                        
-    # to matrix
-    # times vector [x1 x2 x3 x4] where sum(vector)=100
-    # product(vector)
     return
 
 ##################################
 
 def day16():
+    evidence={"children": [3, 0],
+        "cats": [7, 1],
+        "samoyeds": [2, 0],
+        "pomeranians": [3, -1],
+        "akitas": [0, 0],
+        "vizslas": [0, 0],
+        "goldfish": [5, -1],
+        "trees": [3, 1],
+        "cars": [2, 0],
+        "perfumes": [1, 0]}
+    ## cats + trees : more than x
+    ## fish + pomeranians: less than x
+    
+    mx=0
+    aunt=""
+    for line in open("input_16.txt"):
+        line=line.replace(" ","")
+        l=line.strip().split(":")
+        sue ={ x.split(":")[0] : int(x.split(":")[1]) for x in ":".join(l[1:]).split(",")}
+        counter=0
+        for e in evidence:
+            if e in sue:
+                if evidence[e][1] == 0:
+                    if evidence[e][0] == sue[e]:
+                        counter+=1
+        if counter>mx:
+            mx=counter
+            aunt=line
+    print(aunt)
+        
+    
     return
 
 ##################################
+def make_path(elements, l, size):
+    if sum(elements)<size:
+        returnlist=[]
+        for index,element in enumerate(l):
+            new_elements=elements+[element]
+            new_l=l.copy()
+            new_l=new_l[index+1:]
+            returnlist = returnlist + make_path(new_elements,new_l,size)
+        return returnlist
+    if sum(elements)==size:
+        return [elements.copy()]
+    return []
 
 def day17():
+    test=[20, 15, 10, 5, 5]
+    #make_path([], test, 25)
+    containers=[]
+    for line in open("input_17.txt"):
+        containers.append(int(line.strip()))
+    containers.sort(reverse=True)
+    combinations=make_path([], containers, 150)
+    #print(combinations)
+    print("number of combinations: {}".format(len(combinations)))
+    sizes=[len(x) for x in combinations]
+    print("min number of containers: {}".format(min(sizes)))
+    small_combinations=[x for x in combinations if len(x)==4]
+    print("number of small combinations: {}".format(len(small_combinations)))
     return
+
 ##################################
 
+def gather_neighbors(a, rowNumber, columnNumber):
+     return [a[i][j]=="#" if  i >= 0 and i < len(a) and j >= 0 and j < len(a[0]) else False
+                for j in range(columnNumber-1, columnNumber+2)
+                    for i in range(rowNumber-1, rowNumber+2)]
+    
+
+def next_step(grid):
+    new_grid=[["." for x in range(len(grid[0]))] for y in range(len(grid))]
+    for ir,r in enumerate(grid):
+        for ic,c in enumerate(r):
+            neighbors=gather_neighbors(grid,ir,ic)
+            if grid[ir][ic]=="#" and sum(neighbors)>2 and sum(neighbors)<5:
+                new_grid[ir][ic]="#"
+            elif grid[ir][ic]=="." and sum(neighbors)==3:
+                new_grid[ir][ic]="#"
+
+    return fix_grid(new_grid)
+    return new_grid
+
+def printer(grid):
+    lines="\n".join(["".join(line) for line in grid])
+    print(lines)
+    print()
+
+def fix_grid(grid):
+    grid[0][0]="#"
+    grid[-1][0]="#"
+    grid[0][-1]="#"
+    grid[-1][-1]="#"
+    return grid
+
 def day18():
+    minigrid=[list(".#.#.#"),
+              list("...##."),
+              list("#....#"),
+              list("..#..."),
+              list("#.#..#"),
+              list("####..")]
+
+    if False:
+        printer(fix_grid(minigrid))
+        next=next_step(minigrid)
+        printer(next)
+        next=next_step(next)
+        printer(next)
+        next=next_step(next)
+        printer(next)
+        next=next_step(next)
+        printer(next)
+        print(sum((y=="#") for x in next for y in x))
+        exit()
+    
+    grid=[]
+    for line in open("input_18.txt"):
+        grid.append(list(line.strip()))
+    for x in range(100):
+        grid=next_step(fix_grid(grid))
+    
+    print(sum((y=="#") for x in grid for y in x))
     return
 ##################################
 
@@ -758,7 +858,11 @@ if __name__ == '__main__':
     #day12()
     #day13()
     #day14()
-    day15()
+    #day15()
+    #day16()
+    #day17()
+    day18()
+
     #day20(29000000, False)
     #day20(290, True)
     
