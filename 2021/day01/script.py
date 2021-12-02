@@ -1,10 +1,16 @@
+import os
+
+DAY = 1
+PATH = os.path.dirname(os.path.realpath(__file__))
+INPUT = os.path.join(PATH, "input.txt")
+TESTING = os.path.join(PATH, "test.txt")
 
 
-def main_1():
+def main_1(input):
     previous = 0
     counter = 0
-    for line in open("input_1.txt"):
-        number = int(line.strip("\n"))
+    for line in open(input):
+        number = int(line.strip())
         if previous == 0:
             previous = number
             continue
@@ -13,7 +19,7 @@ def main_1():
             previous = number
         else:
             previous = number
-    print(counter)
+    return counter
 
 
 def main_2(input):
@@ -23,7 +29,7 @@ def main_2(input):
     counter = 0
 
     for line in open(input):
-        number = int(line.strip("\n"))
+        number = int(line.strip())
         sum = pre1 + pre2 + number
 
         if pre1 == 0 or pre2 == 0:
@@ -38,10 +44,5 @@ def main_2(input):
         pre2 = pre1
         pre1 = number
 
-    print(counter)
+    return counter
 
-
-main_1()
-
-main_2("test_1.txt")
-main_2("input_1.txt")
