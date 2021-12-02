@@ -34,6 +34,7 @@ def main_2(input):
     print(dist, dept)
     print(dist * dept)
 
+
 main_1("test_2.txt")
 main_1("input_2.txt")
 

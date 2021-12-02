@@ -25,7 +25,7 @@ def main_2(input):
     for line in open(input):
         number = int(line.strip("\n"))
         sum = pre1 + pre2 + number
-            
+
         if pre1 == 0 or pre2 == 0:
             pass
         elif previous == 0 and (pre1 > 0 and pre2 > 0):
@@ -37,9 +37,9 @@ def main_2(input):
             previous = sum
         pre2 = pre1
         pre1 = number
-        
-        
+
     print(counter)
+
 
 main_1()
 
