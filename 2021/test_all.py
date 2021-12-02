@@ -38,4 +38,4 @@ class Test_Day2(Test_Day0):
 # class Test_Day3(Test_Day0):
 #     import day03.script as day
 #     result_1 = 0  # TODO
-#     result_2 = 0  # TOTO
+#     result_2 = 0  # TODO
