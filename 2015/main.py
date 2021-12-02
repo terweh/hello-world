@@ -736,6 +736,26 @@ def day18():
 ##################################
 
 def day19():
+    molecule=""
+    reactions={}
+    for line in open("input_19.txt"):
+        line = line.strip()
+        if "=>" in line:
+            a,b = line.split(" => ")
+            try:
+                reactions[a].add(b)
+            except:
+                reactions[a]=b
+        if len(line)>10:
+            molecule=line
+    molecules=set()
+    print(reactions)
+    for element in reactions:
+        if element in molecule:
+            print("!",end=" ")
+        else:
+            print(" ",end=" ")
+        print(re.match(element, molecule))
     return
 
 ##################################
@@ -861,9 +881,13 @@ if __name__ == '__main__':
     #day15()
     #day16()
     #day17()
-    day18()
+    #day18()
+    day19()
 
-    #day20(29000000, False)
     #day20(290, True)
-    
+    #day20(29000000, False)
+    #day21()
+    #day22()
+    #day23()
+
     #day24()
