@@ -3,7 +3,8 @@ from argparse import ArgumentParser
 
 def run(number):
     try:
-        day = getattr(__import__(f"day{number}", fromlist=["script"]), "script")
+        day = getattr(
+            __import__(f"day{number}", fromlist=["script"]), "script")
     except ModuleNotFoundError as e:
         print(f"Day {number} in not yet available\nError: {e}\n")
         return

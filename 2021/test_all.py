@@ -16,6 +16,7 @@ class Test_Day0():
 
     def test_1(self):
         a = self.day.main_1(self.day.TESTING)
+        print(f"a: {a}, self.expt_1: {self.expt_1}")
         assert a == self.expt_1
 
     def test_2(self):
@@ -35,7 +36,13 @@ class Test_Day2(Test_Day0):
     expt_2 = 900
 
 
+class Test_Day3(Test_Day0):
+    import day03.script as day
+    expt_1 = 198
+    expt_2 = 230
+
+
 # class Test_Day3(Test_Day0):
 #     import day03.script as day
-#     result_1 = 0  # TODO
-#     result_2 = 0  # TODO
+#     expt_1 = 0  # TODO
+#     expt_2 = 0  # TODO
