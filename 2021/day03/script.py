@@ -6,92 +6,90 @@ INPUT = os.path.join(PATH, "input.txt")
 TESTING = os.path.join(PATH, "test.txt")
 
 
-def read_bit_file(bitList):
+def read_bit_file(input):
     """
     read a file and store it's values in a list.
     returns a list of binaries (as strings) and the bit length.
     """
-    with open(bitList) as f:
-        first_line = f.readline().strip()
-        bitLength = len(first_line)
-    bitList = [line.strip() for line in open(bitList)]
-    return bitList, bitLength
+    with open(input) as f:
+        bit_list = [line.strip() for line in f]
+    return bit_list, len(bit_list[0])
 
 
-def get_bit_counts(bitList, bitLength):
+def get_bit_counts(bit_list, bit_length):
     """
     returns the counts for ones and zeros in a list of binaries per position.
     """
-    bitCount = {
-        "one": [0 for _ in range(bitLength)],
-        "zero": [0 for _ in range(bitLength)]}
+    bit_count = {
+        "one": [0 for _ in range(bit_length)],
+        "zero": [0 for _ in range(bit_length)]}
 
-    for line in bitList:
+    for line in bit_list:
         for i, bit in enumerate(line):
             if bit == "0":
-                bitCount["zero"][i] += 1
+                bit_count["zero"][i] += 1
             elif bit == "1":
-                bitCount["one"][i] += 1
+                bit_count["one"][i] += 1
 
-    return bitCount
+    return bit_count
 
 
-def find_Criteria(bitCount, index, invert=False):
+def find_criteria(bit_count, index, invert=False):
     """
     determine the bit criteria.
     inverted when used for CO2.
     """
-    if bitCount["one"][index] > bitCount["zero"][index]:
+    if bit_count["one"][index] > bit_count["zero"][index]:
         return "0" if invert else "1"
-    elif bitCount["one"][index] == bitCount["zero"][index]:
+    elif bit_count["one"][index] == bit_count["zero"][index]:
         return "0" if invert else "1"
-    elif bitCount["one"][index] < bitCount["zero"][index]:
+    elif bit_count["one"][index] < bit_count["zero"][index]:
         return "1" if invert else "0"
 
 
-def find_candidates(bitList, bitLength, bitCount, index=0, invert=False):
+def find_candidates(bit_list, bit_length, bit_count, index=0, invert=False):
     """
     filter the list of binaries according to the determined criteria.
     (or invertion thereof for CO2)
     """
-    bitCriteria = find_Criteria(bitCount, index, invert=invert)
+    bit_criteria = find_criteria(bit_count, index, invert=invert)
 
     # filter list by criteria for byte at index
     filtered = filter(
-        lambda bit: bit[index] == bitCriteria, bitList)
-    bitList = list(filtered)
+        lambda bit: bit[index] == bit_criteria, bit_list)
+    bit_list = list(filtered)
 
     # if there are still more than 1 continue until one is left
-    if len(bitList) > 1:
+    if len(bit_list) > 1:
         return find_candidates(
-            bitList, bitLength, get_bit_counts(bitList, bitLength),
+            bit_list, bit_length, get_bit_counts(bit_list, bit_length),
             index + 1, invert=invert)
 
-    return bitList[0]
+    return bit_list[0]
 
 
-def main_1(Input):
-    bitList, bitLength = read_bit_file(Input)
-    bitCount = get_bit_counts(bitList, bitLength)
+def main_1(input):
+    bit_list, bit_length = read_bit_file(input)
+    bit_count = get_bit_counts(bit_list, bit_length)
 
     gamma = ""
     epsilon = ""
-    for i in range(bitLength):
+    for i in range(bit_length):
         # generate binary and its invert position by position
-        gamma += find_Criteria(bitCount, i)
-        epsilon += find_Criteria(bitCount, i, invert=True)
+        gamma += find_criteria(bit_count, i)
+        epsilon += find_criteria(bit_count, i, invert=True)
 
     # multiply the intigers derrived from the binaries
     return (int(gamma, 2) * int(epsilon, 2))
 
 
 def main_2(input):
-    bitList, bitLength = read_bit_file(input)
-    bitCount = get_bit_counts(bitList, bitLength)
+    bit_list, bit_length = read_bit_file(input)
+    bit_count = get_bit_counts(bit_list, bit_length)
 
     # find the correct binary by applying the criteria rules
-    Ogr = find_candidates(bitList, bitLength, bitCount)
-    CO2 = find_candidates(bitList, bitLength, bitCount, invert=True)
+    o_gr = find_candidates(bit_list, bit_length, bit_count)
+    co_2 = find_candidates(bit_list, bit_length, bit_count, invert=True)
 
     # multiply the intigers derrived from the binaries
-    return (int(Ogr, 2) * int(CO2, 2))
+    return (int(o_gr, 2) * int(co_2, 2))

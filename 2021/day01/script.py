@@ -45,4 +45,3 @@ def main_2(input):
         pre1 = number
 
     return counter
-
