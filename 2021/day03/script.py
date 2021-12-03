@@ -1,4 +1,5 @@
 import os
+from collections import Counter
 
 DAY = 3
 PATH = os.path.dirname(os.path.realpath(__file__))
@@ -21,15 +22,13 @@ def get_bit_counts(bit_list, bit_length):
     returns the counts for ones and zeros in a list of binaries per position.
     """
     bit_count = {
-        "one": [0 for _ in range(bit_length)],
-        "zero": [0 for _ in range(bit_length)]}
+        "one": [0] * bit_length,
+        "zero": [0] * bit_length}
 
-    for line in bit_list:
-        for i, bit in enumerate(line):
-            if bit == "0":
-                bit_count["zero"][i] += 1
-            elif bit == "1":
-                bit_count["one"][i] += 1
+    for i in range(bit_length):
+        counts = Counter(bit[i] for bit in bit_list)
+        bit_count["one"][i] = counts["1"]
+        bit_count["zero"][i] = counts["0"]
 
     return bit_count
 
@@ -39,9 +38,7 @@ def find_criteria(bit_count, index, invert=False):
     determine the bit criteria.
     inverted when used for CO2.
     """
-    if bit_count["one"][index] > bit_count["zero"][index]:
-        return "0" if invert else "1"
-    elif bit_count["one"][index] == bit_count["zero"][index]:
+    if bit_count["one"][index] >= bit_count["zero"][index]:
         return "0" if invert else "1"
     elif bit_count["one"][index] < bit_count["zero"][index]:
         return "1" if invert else "0"
@@ -72,12 +69,12 @@ def main_1(input):
     bit_list, bit_length = read_bit_file(input)
     bit_count = get_bit_counts(bit_list, bit_length)
 
-    gamma = ""
-    epsilon = ""
-    for i in range(bit_length):
-        # generate binary and its invert position by position
-        gamma += find_criteria(bit_count, i)
-        epsilon += find_criteria(bit_count, i, invert=True)
+    gamma = "".join(
+        find_criteria(bit_count, i)
+        for i in range(bit_length))
+    epsilon = "".join(
+        find_criteria(bit_count, i, invert=True)
+        for i in range(bit_length))
 
     # multiply the intigers derrived from the binaries
     return (int(gamma, 2) * int(epsilon, 2))
