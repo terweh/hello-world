@@ -76,7 +76,7 @@ def main_1(input):
         find_criteria(bit_count, i, invert=True)
         for i in range(bit_length))
 
-    # multiply the intigers derrived from the binaries
+    # multiply the integers derived from the binaries
     return (int(gamma, 2) * int(epsilon, 2))
 
 
