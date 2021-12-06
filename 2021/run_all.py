@@ -25,5 +25,5 @@ if __name__ == '__main__':
         for day in args.days:
             run(f"{day:02}")
     else:
-        for day in [1, 2, 3, 4]:
+        for day in [1, 2, 3, 4, 5, 6]:
             run(f"{day:02}")
