@@ -1,6 +1,6 @@
 import os
 
-DAY = 0  # TODO
+DAY = 4
 PATH = os.path.dirname(os.path.realpath(__file__))
 INPUT = os.path.join(PATH, "input.txt")
 TESTING = os.path.join(PATH, "test.txt")

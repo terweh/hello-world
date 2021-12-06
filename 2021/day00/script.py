@@ -8,13 +8,15 @@ TESTING = os.path.join(PATH, "test.txt")
 
 def main_1(input):
     # TODO
-    for line in open(input):
-        pass # TODO
+    with open(input) as file:
+        for line in file:
+            pass  # TODO
     return 0
 
 
 def main_2(input):
     # TODO
-    for line in open(input):
-        pass # TODO
+    with open(input) as file:
+        for line in file:
+            pass  # TODO
     return 0
