@@ -35,8 +35,8 @@ def get_bit_counts(bit_list, bit_length):
 
 def find_criteria(bit_count, index, invert=False):
     """
-    determine the bit criteria.
-    inverted when used for CO2.
+    determine the bit criteria (more 1s or more 0s).
+    inverted when used for CO2 (less 1s or less 0s).
     """
     if bit_count["one"][index] >= bit_count["zero"][index]:
         return "0" if invert else "1"
@@ -69,6 +69,7 @@ def main_1(input):
     bit_list, bit_length = read_bit_file(input)
     bit_count = get_bit_counts(bit_list, bit_length)
 
+    # use the criteria to generate gamma and epsilon
     gamma = "".join(
         find_criteria(bit_count, i)
         for i in range(bit_length))
