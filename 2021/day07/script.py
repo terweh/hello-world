@@ -29,7 +29,7 @@ def fuel_1(m, a):
     summe = 0
     for x in a:
         n = abs(x-m)
-        summe += n
+        summe += int(n)
     return summe
 
 
