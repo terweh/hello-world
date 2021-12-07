@@ -52,7 +52,7 @@ def generate_bingo(input):
     with open(input) as file:
         for line in file:
             line = line.strip("\n")
-            if line == "":
+            if not line:
                 bingos.append(Bingo())
                 index += 1
                 continue

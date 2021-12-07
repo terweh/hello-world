@@ -35,10 +35,10 @@ def from_file(input):
 def main_1(input):
     population = from_file(input)
     population = pass_days(population, 80)
-    return sum(population[x] for x in population)
+    return sum(population.values())
 
 
 def main_2(input):
     population = from_file(input)
     population = pass_days(population, 256)
-    return sum(population[x] for x in population)
+    return sum(population.values())
