@@ -60,6 +60,3 @@ def main_2(input):
                         range(a[1], b[1]+step_1, step_1)):
                     vents.append(f"{x},{y}")
     return counter(vents)
-
-
-print(main_2(INPUT))

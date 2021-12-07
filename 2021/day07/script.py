@@ -1,13 +1,14 @@
 
 import os
-From statistics import median, mean
+from statistics import median, mean
 
 DAY = 7
 PATH = os.path.dirname(os.path.realpath(__file__))
 INPUT = os.path.join(PATH, "input.txt")
-TESTING = os.path.join(PATH, "test.txt")  
+TESTING = os.path.join(PATH, "test.txt")
 
-def from_file(input)
+
+def from_file(input):
     with open(input) as file:
         line = file.readline().strip().split(",")
         a = [int(x) for x in line]
@@ -27,7 +28,7 @@ def find_ideal_fuel(a, m, function):
 def fuel_1(m, a):
     summe = 0
     for x in a:
-        n = abs(x-i)
+        n = abs(x-m)
         summe += n
     return summe
 
@@ -35,17 +36,18 @@ def fuel_1(m, a):
 def fuel_2(m, a):
     summe = 0
     for x in a:
-        n = abs(x-i)
+        n = abs(x-m)
         summe += int(((n * n) + n) / 2)
     return summe
+
 
 def main_1(input):
     a = from_file(input)
     my_median = median(a)
-    return find_ideal_fuel(a, median, fuel_1)
+    return find_ideal_fuel(a, my_median, fuel_1)
 
 
 def main_2(input):
     a = from_file(input)
     my_mean = mean(a)
-    return find_ideal_fuel(a, median, fuel_2)
+    return find_ideal_fuel(a, my_mean, fuel_2)

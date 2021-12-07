@@ -42,6 +42,3 @@ def main_2(input):
     population = from_file(input)
     population = pass_days(population, 256)
     return sum(population[x] for x in population)
-
-
-print(main_2(INPUT))
