@@ -10,7 +10,6 @@ TESTING = os.path.join(PATH, "test.txt")
 def counter(vents):
     count = 0
     counted = Counter(vents)
-    print(counted)
     for vent in counted:
         if counted[vent] > 1:
             count += 1

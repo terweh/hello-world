@@ -10,6 +10,7 @@ class Bingo():
     def __init__(self):
         self.lines = []
         self.columns = []
+        self.changed = False
 
     def add_line(self, array):
         self.lines.append(array)
@@ -24,22 +25,26 @@ class Bingo():
         print(self.columns)
 
     def update(self, number):
+        self.changed = False
         for i in self.lines:
             try:
                 i.remove(number)
+                self.changed = True
             except Exception:
                 pass
         for i in self.columns:
             try:
                 i.remove(number)
+                self.changed = True
             except Exception:
                 pass
 
     def check(self):
-        if [] in self.lines:
-            return self.last_numbers()
-        if [] in self.columns:
-            return self.last_numbers()
+        if self.changed:
+            if [] in self.lines:
+                return self.last_numbers()
+            if [] in self.columns:
+                return self.last_numbers()
 
     def last_numbers(self):
         return [num for line in self.lines for num in line]
