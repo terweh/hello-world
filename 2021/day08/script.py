@@ -19,7 +19,9 @@ def main_1(input):
 
 def parse_line(line):
     line = line.strip().split("|")
-    return list(map(sorted,  line[0].split())), list(map(sorted, line[1].split()))
+    return(
+        list(map(sorted,  line[0].split())),
+        list(map(sorted, line[1].split())))
 
 
 def first_mapping(numbers):
