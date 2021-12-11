@@ -44,22 +44,21 @@ def continue_expansion(matrix, p, visited):
     if matrix[p[0]][p[1]] < 9:
         if ",".join(map(str, p)) not in visited:
             return expand_basin(matrix, p, visited)
-    return visited
 
 
 def expand_basin(matrix, point, visited):
     visited.add(",".join(map(str, point)))
     if point[0] > 0:
-        visited = continue_expansion(
+        continue_expansion(
             matrix, [point[0]-1, point[1]], visited)
     if point[1] > 0:
-        visited = continue_expansion(
+        continue_expansion(
             matrix, [point[0], point[1]-1], visited)
     if point[0] < len(matrix)-1:
-        visited = continue_expansion(
+        continue_expansion(
             matrix, [point[0]+1, point[1]], visited)
     if point[1] < len(matrix[point[0]])-1:
-        visited = continue_expansion(
+        continue_expansion(
             matrix, [point[0], point[1]+1], visited)
     return visited
 

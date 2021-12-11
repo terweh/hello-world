@@ -5,21 +5,21 @@ PATH = os.path.dirname(os.path.realpath(__file__))
 INPUT = os.path.join(PATH, "input.txt")
 TESTING = os.path.join(PATH, "test.txt")
 
-legal_pairs = [
+LEGAL_PAIRS = [
     ("(", ")"),
     ("[", "]"),
     ("{", "}"),
     ("<", ">")
 ]
 
-fees = {
+FEES = {
     ")": 3,
     "]": 57,
     "}": 1197,
     ">": 25137
 }
 
-costs = {
+COSTS = {
     "(": 1,
     "[": 2,
     "{": 3,
@@ -34,19 +34,17 @@ def parse_line(line):
             collector.append(element)
         else:
             opened = collector.pop()
-            if (opened, element) in legal_pairs:
-                pass
-            else:
-                return fees[element], []
+            if (opened, element) not in LEGAL_PAIRS:
+                return FEES[element], []
     return 0, collector
 
 
 def close_collector(collector):
     score = 0
-    while len(collector) > 0:
+    while collector:
         to_close = collector.pop()
         score *= 5
-        score += costs[to_close]
+        score += COSTS[to_close]
     return score
 
 
