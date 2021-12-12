@@ -84,6 +84,12 @@ class Test_Day10(Test_Day0):
     expt_2 = 288957
 
 
+class Test_Day11(Test_Day0):
+    import day11.script as day
+    expt_1 = 1656
+    expt_2 = 195
+
+
 # class Test_Day3(Test_Day0):
 #     import day03.script as day
 #     expt_1 = 0  # TODO
