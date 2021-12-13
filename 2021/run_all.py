@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     for part in args.parts:
-        if part not in [1,2]:
+        if part not in [1, 2]:
             print(f"only part 1 and/or 2 are available, not {part}")
             exit()
 
