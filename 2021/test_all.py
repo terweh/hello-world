@@ -92,7 +92,7 @@ class Test_Day11(Test_Day0):
 class Test_Day12(Test_Day0):
     import day12.script as day
     expt_1 = 226
-    expt_2 = 0
+    expt_2 = 3509
 
 
 # class Test_Day3(Test_Day0):
