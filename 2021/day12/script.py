@@ -60,11 +60,7 @@ def main_2(input):
     paths, small_caves = from_file(input)
     default = go_from('start', paths, [])
     count = default
-    print(small_caves)
+    # print(small_caves)
     for cave in small_caves:
         count += go_from('start', paths, [], cave) - default
     return count
-
-
-print(main_1(TESTING))
-print(main_2(INPUT))

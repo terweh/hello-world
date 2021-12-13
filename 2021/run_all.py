@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 import timeit
 
 
-def run(number, timer):
+def run(number, timer, parts):
     try:
         day = getattr(
             __import__(f"day{number}", fromlist=["script"]), "script")
@@ -10,20 +10,16 @@ def run(number, timer):
         print(f"Day {number} in not yet available\nError: {e}\n")
         return
     print("Day {}".format(day.DAY))
-    print("{}.1:    {}".format(day.DAY, day.main_1(day.INPUT)))
-    if timer:
-        time = timeit.timeit(
-            stmt='day.main_1(day.TESTING)',
-            setup=f'from day{number} import script as day',
-            number=10000)
-        print(f"\tTIME: {time}")
-    print("{}.2:    {}".format(day.DAY, day.main_2(day.INPUT)))
-    if timer:
-        time = timeit.timeit(
-            stmt='day.main_2(day.TESTING)',
-            setup=f'from day{number} import script as day',
-            number=100)
-        print(f"\tTIME: {time}")
+    for part in parts:
+        outcome = day.main_1(day.INPUT) if part == 1 else day.main_2(day.INPUT)
+        print(f"{day.DAY}.{part}:    {outcome}")
+
+        if timer:
+            time = timeit.timeit(
+                stmt=f'day.main_{part}(day.TESTING)',
+                setup=f'from day{number} import script as day',
+                number=10000)
+            print(f"\tTIME: {time}")
     print()
 
 
@@ -33,12 +29,19 @@ if __name__ == '__main__':
         '--days', '-d', type=int, nargs='+', help='list of days to run')
     parser.add_argument(
         '--timer', '-t', action='store_true', help='run timer for each day')
+    parser.add_argument(
+        '--parts', '-p', type=int, nargs='+',
+        help='run timer for each day', default=[1, 2])
 
     args = parser.parse_args()
+    for part in args.parts:
+        if part not in [1,2]:
+            print(f"only part 1 and/or 2 are available, not {part}")
+            exit()
 
     if args.days:
         for day in args.days:
-            run(f"{day:02}", args.timer)
+            run(f"{day:02}", args.timer, args.parts)
     else:
-        for day in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]:
-            run(f"{day:02}", args.timer)
+        for day in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]:
+            run(f"{day:02}", args.timer, args.parts)
