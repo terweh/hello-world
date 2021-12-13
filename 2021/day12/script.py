@@ -18,7 +18,7 @@ def go_from(origin, paths, visited, extra_visit=""):
     if origin == 'end':
         # print(",".join(new_visited))
         return 1
-    
+
     possible_ways = [
         path
         for path in paths
