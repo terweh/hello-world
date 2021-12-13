@@ -99,7 +99,7 @@ class Test_Day12(Test_Day0):
 class Test_Day13(Test_Day0):
     import day13.script as day
     expt_1 = 17
-    expt_2 = "\n#####\n#...#\n#...#\n#...#\n#####\n"
+    expt_2 = "\n█████\n█   █\n█   █\n█   █\n█████\n"
 
 
 # class Test_Day3(Test_Day0):

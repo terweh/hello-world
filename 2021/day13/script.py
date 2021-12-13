@@ -15,10 +15,9 @@ def from_file(input):
             line = line.strip()
             if instructions:
                 fold = line.split("=")
-                folds.append((fold[0][-1:], int(fold[1])))
+                folds.append((1 if fold[0][-1:] == 'y' else 0, int(fold[1])))
             elif line == "":
                 instructions = True
-                continue
             else:
                 point = line.split(",")
                 points.add((int(point[0]), int(point[1])))
@@ -26,23 +25,16 @@ def from_file(input):
 
 
 def fold_over(fold, points):
-    if fold[0] == "y":
-        return fold_over_dimension(1, fold[1], points)
-    else:
-        return fold_over_dimension(0, fold[1], points)
-
-
-def fold_over_dimension(dimension, fold_pos, points):
-    remove_points = set()
-    add_points = set()
+    dim, pos = fold
+    new_points = set()
     for point in points:
-        if point[dimension] > fold_pos:
-            remove_points.add(point)
+        if point[dim] > pos:
             new_point = list(point)
-            new_point[dimension] = fold_pos - (point[dimension] - fold_pos)
-            add_points.add(tuple(new_point))
-    points = (points - remove_points) | add_points
-    return points
+            new_point[dim] = pos - (point[dim] - pos)
+            new_points.add(tuple(new_point))
+        else:
+            new_points.add(point)
+    return new_points
 
 
 def printer(points):
@@ -51,10 +43,7 @@ def printer(points):
     result = "\n"
     for y in range(y_dim):
         for x in range(x_dim):
-            if (x, y) in points:
-                result += "#"
-            else:
-                result += "."
+            result += "█" if (x, y) in points else " "
         result += "\n"
     return result
 
