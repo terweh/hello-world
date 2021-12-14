@@ -1,5 +1,5 @@
 import os
-from collections import Counter
+from collections import Counter, defaultdict
 
 DAY = 14
 PATH = os.path.dirname(os.path.realpath(__file__))
@@ -28,16 +28,10 @@ def from_file(input):
 
 
 def apply_insertions(pairs, insertions):
-    new_pairs = {}
+    new_pairs = defaultdict(int)
     for pair in pairs:
-        try:
-            new_pairs[pair[0] + insertions[pair]] += pairs[pair]
-        except Exception:
-            new_pairs.update({pair[0] + insertions[pair]: pairs[pair]})
-        try:
-            new_pairs[insertions[pair] + pair[1]] += pairs[pair]
-        except Exception:
-            new_pairs.update({insertions[pair] + pair[1]: pairs[pair]})
+        new_pairs[pair[0] + insertions[pair]] += pairs[pair]
+        new_pairs[insertions[pair] + pair[1]] += pairs[pair]
 
     return new_pairs
 
@@ -46,17 +40,13 @@ def make_x_steps(pairs, insertions, last, x):
     for _ in range(x):
         pairs = apply_insertions(pairs, insertions)
 
-    counter = {}
+    counter = defaultdict(int)
     for pair in pairs:
-        try:
-            counter[pair[0]] += pairs[pair]
-        except Exception:
-            counter.update({pair[0]: pairs[pair]})
+        counter[pair[0]] += pairs[pair]
     counter[last] += 1
 
-    mx = max(counter, key=counter.get)
-    mn = min(counter, key=counter.get)
-    return counter[mx] - counter[mn]
+    sort = sorted(counter, key=counter.get)
+    return counter[sort[-1]] - counter[sort[1]]
 
 
 def main_1(input):
