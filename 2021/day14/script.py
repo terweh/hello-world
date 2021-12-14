@@ -16,7 +16,7 @@ def from_file(input):
             line = line.strip()
             if instructions:
                 insertion = line.split(" -> ")
-                insertions.update({insertion[0]: insertion[1]})
+                insertions[insertion[0]] = insertion[1]
             elif line == "":
                 instructions = True
             else:
@@ -46,7 +46,7 @@ def make_x_steps(pairs, insertions, last, x):
     counter[last] += 1
 
     sort = sorted(counter, key=counter.get)
-    return counter[sort[-1]] - counter[sort[1]]
+    return counter[sort[-1]] - counter[sort[0]]
 
 
 def main_1(input):
