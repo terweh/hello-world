@@ -102,6 +102,12 @@ class Test_Day13(Test_Day0):
     expt_2 = "\n█████\n█   █\n█   █\n█   █\n█████\n"
 
 
+class Test_Day14(Test_Day0):
+    import day14.script as day
+    expt_1 = 1588
+    expt_2 = 2188189693529
+
+
 # class Test_Day3(Test_Day0):
 #     import day03.script as day
 #     expt_1 = 0  # TODO
