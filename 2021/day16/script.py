@@ -22,8 +22,8 @@ def main_1(input):
         # "D2FE28",
         # "38006F45291200",
         # "EE00D40C823060",
-        "8A004A801A8002F478",
-        "620080001611562C8802118E34",
+        # "8A004A801A8002F478",
+        # "620080001611562C8802118E34",
         "C0015000016115A2E0802F182340",
         "A0016C880162017C3686B18A3D4780"
     ]
@@ -38,33 +38,33 @@ def process_hex(bit_string):
     version = int(bit_string[:3], 2)
     s_type = int(bit_string[3:6], 2)
 
-    # print(bit_string)
+    print(bit_string)
     if s_type == 4:
         rest = bit_string[6:]
-        # print(f"version: {version}")
-        # print(f"type: {s_type}")
-        # print(bit_string[:3], bit_string[3:6], rest)
-        # print(bit_string, version, s_type, literal(rest))
+        print(f"version: {version}")
+        print(f"type: {s_type}")
+        print(bit_string[:3], bit_string[3:6], rest)
+        print(bit_string, version, s_type, literal(rest))
         return version
     else:
         l_type = bit_string[6:7]
-        # print(f"version: {version}")
-        # print(f"type: {s_type}")
-        # print(f"len_type: {l_type}")
+        print(f"version: {version}")
+        print(f"type: {s_type}")
+        print(f"len_type: {l_type}")
 
         if l_type == "0":
             subs_len = int(bit_string[7:7+15], 2)
             rest = bit_string[7+15:]
-            # print(f"subs_len: {subs_len}")
-            # print(bit_string[:3], bit_string[3:6], bit_string[7:7+15], rest)
-            # print(f"take 15 to determine length: {subs_len}")
+            print(f"subs_len: {subs_len}")
+            print(bit_string[:3], bit_string[3:6], bit_string[7:7+15], rest)
+            print(f"take 15 to determine length: {subs_len}")
             return version + sub_by_len(subs_len, rest)
         else:
             subs_n = int(bit_string[7:7+11], 2)
             rest = bit_string[7+11:]
-            # print(f"subs_n: {subs_n}")
-            # print(bit_string[:3], bit_string[3:6], bit_string[7:7+11], rest)
-            # print(f"take 11 to determine number: {subs_n}")
+            print(f"subs_n: {subs_n}")
+            print(bit_string[:3], bit_string[3:6], bit_string[7:7+11], rest)
+            print(f"take 11 to determine number: {subs_n}")
             return version + sub_by_n(subs_n, rest)
 
 
