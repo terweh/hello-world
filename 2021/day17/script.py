@@ -41,7 +41,7 @@ def reach_area(area):
     min_x = [
         x for x in range(area["x"][0])
         if (x * (x + 1) / 2) >= area["x"][0]][0]
-    max_y = area["x"][-1] + area["y"][0]
+    max_y = abs(area["y"][-1])
     return min_x, area["x"][-1]+1, area["y"][-1]-1, max_y
 
 
