@@ -1,37 +1,82 @@
 import os
 from ast import literal_eval as parse
-DAY = 0  # TODO
+
+DAY = 18
 PATH = os.path.dirname(os.path.realpath(__file__))
 INPUT = os.path.join(PATH, "input.txt")
 TESTING = os.path.join(PATH, "test.txt")
 
 
+def flat(some_list):
+    depths = []
+    for item in some_list:
+        if isinstance(item, list):
+            depths.append(flat(item))
+    if len(depths) > 0:
+        return 1 + max(depths)
+    return 1
+
+
+def split(number):
+    if number < 10:
+        return number
+    return [int(number/2), int((number+1)/2)]
+
+
+def combine(number, second_part):
+    if isinstance(second_part, int):
+        return split(number + second_part)
+    if isinstance(second_part, list):
+        return [combine(number, second_part[0]), second_part[1]]
+
+
 def validate(number, level=1):
     if level == 5:
-        return number
-    for n in number:
-        if isinstance(n, list):
-            n1, n2 = validate(n, level=level+1)
-        else:
-            return n
+        if isinstance(number, list):
+            return (
+                number[0],
+                0,
+                number[1]
+            )
+        return (
+            0,
+            split(number),
+            0
+        )
+    if isinstance(number, list):
+        n_1 = validate(number[0], level=level+1)
+        n_2 = validate(number[1], level=level+1)
+        return (
+            n_1[0],
+            [combine(n_2[0], n_1[1]), combine(n_1[2], n_2[1])],
+            n_2[2]
+        )
+    return (
+        0,
+        split(number),
+        0
+    )
 
 
-
-def addition(number_1, number_2):
-    number = [number_1, number_2]
-    number = validate(number)
-    return(number)
+def addition(number):
+    a, number, e = validate(number)
+    print(number)
+    if flat(number) > 4:
+        return addition(number)
+    return number
 
 
 def main_1(input):
-    sum = ""
+    sum = []
     with open(input) as file:
         for line in file:
             line = parse(line.strip())
-            if sum == "":
+            if sum == []:
                 sum = line
                 continue
-            sum = addition(sum, line)
+            print(flat([sum, line]))
+            print([sum, line])
+            sum = addition([sum, line])
     print(sum)
     return 0
 
