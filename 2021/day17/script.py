@@ -45,6 +45,12 @@ def reach_area(area):
     return min_x, area["x"][-1]+1, area["y"][-1]-1, max_y
 
 
+def main_1_alternative(input):
+    with open(input) as file:
+        this = abs(int(file.readline().strip().split("=")[-1].split("..")[0]))
+        return int(this * (this - 1) / 2)
+
+
 def main_1(input):
     area = mark_area(input)
     min_x, max_x, min_y, max_y = reach_area(area)

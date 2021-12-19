@@ -114,6 +114,18 @@ class Test_Day15(Test_Day0):
     expt_2 = 315
 
 
+class Test_Day16(Test_Day0):
+    import day16.script as day
+    expt_1 = (
+        6 + 9 + 14 + 16 + 12 + 23 + 31 + 14 +
+        8 + 15 + 11 + 13 + 19 + 16 + 20
+    )
+    expt_2 = (
+        2021 + 1 + 3 + 15 + 46 + 46 + 54 +
+        3 + 54 + 7 + 9 + 1 + 0 + 0 + 1
+    )
+
+
 class Test_Day17(Test_Day0):
     import day17.script as day
     expt_1 = 45
