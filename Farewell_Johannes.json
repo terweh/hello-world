@@ -4,19 +4,19 @@
         {
             "contentText": "Ich wünsche dir viel Erfolg und Spaß im neuen Job. Alles Gute! - Ralph",
             "id": "FW_J_1",
-            "author": "Ralph"
+            "author": "moerral"
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
             "contentText": "You joined the team in interesting times and your contribution to the semantic team was significant - together we managed to build a great product so I wish you even greater success in your next oportunity! Thank you and... my the Machine Learning be with you! Plamen",
             "id": "FW_J_2",
-            "author": "Plamen"
+            "author": "tanopla"
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
             "contentText": "Hi Johannes, thank you for being a great team lead! I enjoyed our weekly meetings, where you provided me with feedback, our social hangouts, and the great team climate, to which you contributed. For you future, I wish you all the best. Ruslan",
             "id": "FW_J_3",
-            "author": "Ruslan"
+            "author": "sandrus"
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
@@ -25,7 +25,7 @@
             "id": "FW_J_2",
             "page": 1,
             "start": 1,
-            "author": "Lubo"
+            "author": "yanelub"
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
