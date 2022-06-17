@@ -1,52 +1,63 @@
-
 {
     "annotations": [
         {
             "contentText": "Ich wünsche dir viel Erfolg und Spaß im neuen Job. Alles Gute! - Ralph",
             "id": "FW_J_1",
-            "author": "moerral"
+            "author": "moerral",
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
             "contentText": "You joined the team in interesting times and your contribution to the semantic team was significant - together we managed to build a great product so I wish you even greater success in your next oportunity! Thank you and... my the Machine Learning be with you! Plamen",
             "id": "FW_J_2",
-            "author": "tanopla"
+            "author": "tanopla",
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
             "contentText": "Hi Johannes, thank you for being a great team lead! I enjoyed our weekly meetings, where you provided me with feedback, our social hangouts, and the great team climate, to which you contributed. For you future, I wish you all the best. Ruslan",
             "id": "FW_J_3",
-            "author": "sandrus"
+            "author": "sandrus",
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
-            "contentText": "",
+            "contentText": "Thank you for everything Johannes! I've learnt a lot from you! Wish you all the best both in life and your next challenge! Lubo",
             "end": 1,
             "id": "FW_J_2",
             "page": 1,
             "start": 1,
-            "author": "yanelub"
+            "author": "yanelub",
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
-            "contentText": "",
+            "contentText": "Dear Johannes, It's been a pleasure working with you at Drooms, unfortunately it was somewhat short. Life is moving ahead, it is a property of life. Starting a new job & moving to a new city looks like a big change. May this chapter in your life be filled with satisfaction and massive success. Thank you and hope to see you again someday. Nikolai der rote Punkt :)",
             "end": 1,
             "id": "FW_J_2",
             "page": 1,
             "start": 1,
-            "author": "krotnik"
+            "author": "krotnik",
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
         },
         {
-            "contentText": "",
+            "contentText": "Dear Johannes, it was a pleasure working with you! I thoroughly enjoyed our talks and will definitely miss them. I wish you all the best & hope you'll have a great new start :) Best Dominik",
             "end": 1,
             "id": "FW_J_2",
             "page": 1,
             "start": 1,
-            "author": "terwdom"
+            "author": "terwdom",
             "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
+        },
+        {
+            "contentText": "It was a real pleasure working with you! Wish you all the best and all the data on your way building the future of AI! Nikola P.S. Don't forget where Sofia is!",
+            "end": 1,
+            "id": "FW_J_2",
+            "page": 1,
+            "start": 1,
+            "author": "ralenik",
+            "type": "http://www.drooms.com/ontologies/entities/FarewellWish"
+        },
+        {
+            "still_missing": [
+                "katsili",
+                "r.benteau",
+                "krausla"
+            ]
         }
-      ]
-}
-
-
